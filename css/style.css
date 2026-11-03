@@ -1,0 +1,63 @@
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#000;color:#eef4ff;overscroll-behavior:none;touch-action:none;cursor:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;font-family:"Optima","Avenir Next","Segoe UI","Helvetica Neue",system-ui,sans-serif}
+#stage{position:fixed;inset:0;overflow:hidden;transform:scale(1.14);transition:transform 7s cubic-bezier(.2,.65,.2,1)}
+#stage:not(.blur){transform:scale(1)}
+#stage canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 0s,filter 3.6s ease-out;animation:drift 70s ease-in-out infinite alternate}
+#stage canvas.show{opacity:1;transition:opacity 4s ease-in-out,filter 3.6s ease-out}
+#stage canvas.show.first{transition:opacity 1.4s ease-out,filter 3.6s ease-out}
+#stage.blur canvas{filter:blur(36px) brightness(.85)}
+@keyframes drift{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.08) translate(-1.2%,.8%)}}
+#light{position:fixed;inset:-20%;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(40% 40% at 30% 30%,rgba(255,220,170,.10),transparent 70%),radial-gradient(45% 45% at 75% 70%,rgba(120,170,255,.10),transparent 70%);animation:lite 45s ease-in-out infinite alternate}
+@keyframes lite{from{transform:translate(-4%,3%) rotate(0)}to{transform:translate(4%,-3%) rotate(8deg)}}
+#vig{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.7) 100%)}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
+#host{position:fixed;inset:0;display:grid;place-items:center;z-index:5;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.card{grid-area:1/1;width:100%;display:flex;flex-direction:column;align-items:center;gap:.9em;padding:0 5vw;text-align:center;text-shadow:0 0 22px rgba(150,200,255,.35),0 2px 30px rgba(0,0,0,.65)}
+.card.out .line{animation:outl 1.6s ease-in both}
+@keyframes outl{to{opacity:0;filter:blur(14px);transform:scale(1.06) translateY(-.2em)}}
+.line{display:flex;flex-wrap:wrap;justify-content:center;gap:0 .32em;max-width:100%;overflow-wrap:anywhere}
+.w{display:inline-block;white-space:nowrap}
+.quote{font-size:clamp(1.35rem,4.4vw,3rem);font-weight:300;letter-spacing:.04em;line-height:1.25;max-width:22em}
+.big{font-size:clamp(2.4rem,9.5vw,7rem);font-weight:200;letter-spacing:.08em}
+.lab{font-size:clamp(.78rem,2.3vw,1.15rem);font-weight:400;letter-spacing:.5em;opacity:.9}
+.sub{font-size:clamp(1rem,3vw,1.8rem);font-weight:300;letter-spacing:.07em}
+.idc{font-size:clamp(1.1rem,3.6vw,2.4rem);font-weight:300;letter-spacing:.3em}
+.ch{display:inline-block;--dl:calc(var(--off,0ms) + var(--i)*var(--d,60ms));animation-duration:1.3s;animation-fill-mode:both;animation-delay:var(--dl)}
+.t-crystal .ch{animation-name:cry;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+@keyframes cry{0%{opacity:0;transform:translateY(-.6em) rotateX(90deg) scale(1.6);filter:blur(10px) brightness(3)}60%{opacity:1;filter:blur(0) brightness(1.8)}100%{opacity:1;transform:none;filter:none}}
+.t-golden .ch{animation-name:gold}
+@keyframes gold{0%{opacity:0;transform:scale(.2) translateY(.5em);color:#ffd27a;text-shadow:0 0 24px #ffb800}70%{opacity:1;color:#ffd27a}100%{transform:none;color:#eef4ff}}
+.t-typewriter .ch{animation-name:tw;animation-duration:.01s}
+.t-typewriter::after{content:"";display:inline-block;width:.08em;height:1em;background:#9fd8ff;margin-left:.1em;animation:blink .8s steps(1) infinite}
+@keyframes tw{from{opacity:0}to{opacity:1}}
+@keyframes blink{50%{opacity:0}}
+.t-neon .ch{animation-name:neon;animation-duration:1.4s}
+@keyframes neon{0%{opacity:0}10%{opacity:1}16%{opacity:.15}28%{opacity:1}34%{opacity:.3}100%{opacity:1;color:#eaffff;text-shadow:0 0 6px #fff,0 0 18px #3df,0 0 42px #09f}}
+.t-smoke .ch{animation-name:smoke;animation-duration:1.8s}
+@keyframes smoke{from{opacity:0;filter:blur(16px);transform:translate(calc(var(--r)*.9em),.9em) scale(1.8);color:#aab}to{opacity:1;filter:none;transform:none}}
+.t-liquid .ch{animation-name:liq;animation-timing-function:cubic-bezier(.3,1.5,.5,1)}
+@keyframes liq{0%{opacity:0;transform:scale(1,.1) skewX(30deg) translateY(.4em);filter:blur(6px)}55%{opacity:1;transform:scale(1.15,.85)}100%{transform:none;filter:none}}
+.t-rotate3d{perspective:700px}
+.t-rotate3d .ch{animation-name:rot}
+@keyframes rot{from{opacity:0;transform:rotateY(-160deg) translateZ(-120px)}to{opacity:1;transform:none}}
+.t-beam .ch{animation-name:beam;animation-duration:1.1s}
+@keyframes beam{from{opacity:0;clip-path:inset(-50% 100% -50% -50%);filter:brightness(4) blur(4px)}to{opacity:1;clip-path:inset(-50%);filter:none}}
+.t-float .ch{animation-name:flo,bob;animation-duration:1.4s,4s;animation-delay:var(--dl),calc(var(--dl) + 1.4s);animation-iteration-count:1,infinite;animation-direction:normal,alternate;animation-timing-function:cubic-bezier(.2,.7,.2,1),ease-in-out}
+@keyframes flo{from{opacity:0;transform:translateY(1.2em)}to{opacity:1;transform:none}}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-.14em)}}
+.t-blur .ch{animation-name:blr;animation-duration:1.6s}
+@keyframes blr{from{opacity:0;filter:blur(20px);transform:scale(1.25)}to{opacity:1;filter:none;transform:none}}
+.t-wave .ch{animation-name:wav;animation-duration:1.5s}
+@keyframes wav{0%{opacity:0;transform:translateY(1em)}40%{opacity:1;transform:translateY(-.4em)}70%{transform:translateY(.15em)}100%{opacity:1;transform:none}}
+.t-stagger .ch{animation-name:stg}
+@keyframes stg{from{opacity:0;transform:translateX(-.6em)}to{opacity:1;transform:none}}
+.t-outline .ch{animation-name:outl2;animation-duration:1.8s}
+@keyframes outl2{0%{opacity:0;color:transparent;-webkit-text-stroke:1px #fff}45%{opacity:1;color:transparent;-webkit-text-stroke:1px #fff;text-shadow:0 0 18px #fff}100%{opacity:1;color:#eef4ff;-webkit-text-stroke:0 transparent}}
+.t-scale .ch{animation-name:scl}
+@keyframes scl{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+#enter{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:rgba(0,0,0,.25);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:opacity 1s}
+#enter[hidden]{display:none}
+#enter.gone{opacity:0;pointer-events:none}
+#enterBtn{cursor:pointer;padding:1.1em 2.4em;border-radius:99px;border:1px solid rgba(255,255,255,.35);background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.05));-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:#fff;letter-spacing:.3em;text-transform:uppercase;font:inherit;font-size:.8rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 40px rgba(0,0,0,.5);animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 60px rgba(140,190,255,.35)}}
+@media(prefers-reduced-motion:reduce){#stage canvas,#light,#enterBtn{animation:none}#stage{transition:none}}
